@@ -21,7 +21,7 @@ gulp.task('inject', function(){
     var injectSrc = gulp.src(['./public/css/*.css', 
                               './public/js/*.js'], {read: false});
     var injectOptions = {
-        ignorePath: './public'
+        ignorePath: '/public'
     };
     var options = {
         bowerJson: require('./bower.json'),
@@ -29,7 +29,7 @@ gulp.task('inject', function(){
         ignorePath: '../../public'
     };
     
-    return gulp.src('./src/views/*.html')
+    return gulp.src('./src/views/*.jade')
         .pipe(wiredep(options))
         .pipe(inject(injectSrc, injectOptions))
         .pipe(gulp.dest('./src/views'));
