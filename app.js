@@ -9,9 +9,32 @@ app.use(express.static('public'));
 app.set('views', './src/views');
 app.set('view engine', 'ejs');
 
+var books = [
+    {
+        title: 'War and Peace',
+        genre: 'Historical Fiction',
+        author: 'Tolstoy',
+        read: false
+    }, 
+    {
+        title: 'Les Misérables',
+        genre: 'Historical Fiction',
+        author: 'Victor Hugo',
+        read: true
+    }
+];
 bookRouter.route('/')
     .get(function (req, res) {
-        res.send('Hello Books');
+        res.render('books', 
+        {
+            title: 'Books',
+            nav: [
+                { Link: '/Books', Text: 'Books' },
+                { Link: '/Authors', Text: 'Authors' }
+            ],
+            books: books
+        }
+        );
     });
 
 bookRouter.route('/single')
