@@ -15,6 +15,18 @@ var router = function (nav) {
             genre: 'Historical Fiction',
             author: 'Victor Hugo',
             read: true
+        },
+        {
+            title: 'Life On The Mississipi',
+            genre: 'History',
+            author: 'Mark Twain',
+            read: false
+        },
+        {
+            title: 'The Wind in the Willows',
+            genre: 'Fantasy',
+            author: 'Kenneth Grahame',
+            read: false
         }
     ];
 
