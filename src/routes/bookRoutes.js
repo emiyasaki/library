@@ -1,44 +1,23 @@
 var express = require('express');
-
 var bookRouter = express.Router();
+var mongodb = require('mongodb').MongoClient;
 
 var router = function (nav) {
-    var books = [
-        {
-            title: 'War and Peace',
-            genre: 'Historical Fiction',
-            author: 'Tolstoy',
-            read: false
-        },
-        {
-            title: 'Les Misérables',
-            genre: 'Historical Fiction',
-            author: 'Victor Hugo',
-            read: true
-        },
-        {
-            title: 'Life On The Mississipi',
-            genre: 'History',
-            author: 'Mark Twain',
-            read: false
-        },
-        {
-            title: 'The Wind in the Willows',
-            genre: 'Fantasy',
-            author: 'Kenneth Grahame',
-            read: false
-        }
-    ];
-
     bookRouter.route('/')
         .get(function (req, res) {
-            res.render('bookListView',
-                {
-                    title: 'Books',
-                    nav: nav,
-                    books: books
-                }
-                );
+            var url = 'mongodb://localhost:27017/libraryApp';
+            mongodb.connect(url, function (err, db) {
+                var collection = db.collection('books');
+                collection.find({}).toArray(function (err, results) {
+                    res.render('bookListView',
+                        {
+                            title: 'Books',
+                            nav: nav,
+                            books: results
+                        }
+                        );
+                });
+            });
         });
 
     bookRouter.route('/:id')
