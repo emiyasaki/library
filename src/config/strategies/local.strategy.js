@@ -13,13 +13,9 @@ module.exports = function () {
                 var collection = db.collection('users');
                 collection.findOne({ username: username },
                     function (err, results) {
-                        if (results) {
-                            if (results.password === password) {
-                                var user = results;
-                                done(null, user);
-                            } else {
-                                done(null, false, { message: 'Cannot find user' });
-                            }
+                        if (results.password === password) {
+                            var user = results;
+                            done(null, user);
                         } else {
                             done(null, false, { message: 'Cannot find user' });
                         }
